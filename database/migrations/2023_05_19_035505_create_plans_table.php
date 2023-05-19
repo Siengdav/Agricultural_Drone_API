@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id('plan_id');
             $table->string('planName');
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
