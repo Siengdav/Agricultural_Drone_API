@@ -12,6 +12,8 @@ class Location extends Model
     protected $fillable =[
         'province',
         'map_id',
+        'latitude',
+        'longitude',
     ];
     public function map()
     {
