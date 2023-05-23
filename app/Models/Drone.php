@@ -27,4 +27,8 @@ class Drone extends Model
     {
         return $this->hasMany(Location::class);
     }
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class, 'instructions');
+    }
 }
