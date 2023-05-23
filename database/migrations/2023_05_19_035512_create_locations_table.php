@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id('location_id');
             $table->string('province');
+            $table->unsignedBigInteger('map_id');
+            $table->foreign('map_id')->references('map_id')->on('maps')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
