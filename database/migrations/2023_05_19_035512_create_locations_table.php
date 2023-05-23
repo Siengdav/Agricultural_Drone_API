@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id('location_id');
             $table->string('province');
+
+            $table->unsignedBigInteger('drone_id');
+            $table->foreign('drone_id')->references('drone_id')->on('drones')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

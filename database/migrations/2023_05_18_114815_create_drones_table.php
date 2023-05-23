@@ -9,10 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    
     public function up(): void
     {
         Schema::create('drones', function (Blueprint $table) {
-            $table->string('drone_id');
+            $table->id('drone_id');
             $table->string('type');
             $table->string('dateTime');
             $table->string('image');
