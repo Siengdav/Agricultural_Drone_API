@@ -17,8 +17,13 @@ class Location extends Model
     {
         return $this->belongsTo(Map::class);
     }
+
     public function drones():BelongsTo
     {
         return $this->belongsTo(Drone::class);
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'farms');
     }
 }

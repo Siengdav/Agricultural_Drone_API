@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Farm extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'user_id',
+        'location_id'
+    ];
 }
