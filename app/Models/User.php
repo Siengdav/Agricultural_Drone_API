@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Plan::class);
     }
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'farms');
+    }
 }
