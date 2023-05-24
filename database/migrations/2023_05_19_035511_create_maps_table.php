@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('maps', function (Blueprint $table) {
-            $table->id('map_id');
+            $table->id();
             $table->string('image');
             
             $table->unsignedBigInteger('drone_id');
-            $table->foreign('drone_id')->references('drone_id')->on('drones')
+            $table->foreign('drone_id')->references('id')->on('drones')
             ->onDelete('cascade');
             $table->timestamps();
         });
