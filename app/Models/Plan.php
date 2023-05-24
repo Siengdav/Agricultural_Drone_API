@@ -13,6 +13,17 @@ class Plan extends Model
         'planName',
         'user_id'
     ];
+    public static function store($request, $id = null)
+    {   
+        
+        $plan = $request->only([
+            'planName',
+            'user_id'
+        ]);
+        $plan = self::updateOrCreate(['id' => $id], $plan);
+        return $plan;
+
+    }
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);

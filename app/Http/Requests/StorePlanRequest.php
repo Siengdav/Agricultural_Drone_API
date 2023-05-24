@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StorePlanRequest extends FormRequest
 {
@@ -11,7 +13,11 @@ class StorePlanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['success' => false, 'message' => $validator->errors()], 412));
     }
 
     /**
@@ -22,7 +28,8 @@ class StorePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'planName' => 'required',
+            'user_id' => 'required'
         ];
     }
 }
