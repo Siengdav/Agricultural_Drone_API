@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -33,7 +34,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    
     /**
      * The attributes that should be cast.
      *
@@ -41,9 +42,21 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+    
     ];
 
+    public static function store($request, $id = null)
+    {   
+        
+        $user = $request->only([
+            'name',
+            'email',
+            'password',
+        ]);
+        $user = self::updateOrCreate(['id' => $id], $user);
+        return $user;
+
+    }
     public function drones(): HasMany
     {
         return $this->hasMany(Drone::class);

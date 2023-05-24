@@ -13,14 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('drones', function (Blueprint $table) {
-            $table->id('drone_id');
+            $table->id();
             $table->string('type');
             $table->string('dateTime');
-            $table->string('image');
             $table->string('battery');
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users')
+            $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade');
             $table->timestamps();
         });

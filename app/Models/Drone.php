@@ -14,11 +14,22 @@ class Drone extends Model
     protected $fillable =[
         'type',
         'dateTime',
-        'image',
         'battery',
         'user_id'
     ];
+    public static function store($request, $id = null)
+    {   
+        
+        $drone = $request->only([
+            'type',
+            'dateTime',
+            'battery',
+            'user_id'
+        ]);
+        $drone = self::updateOrCreate(['id' => $id], $drone);
+        return $drone;
 
+    }
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
