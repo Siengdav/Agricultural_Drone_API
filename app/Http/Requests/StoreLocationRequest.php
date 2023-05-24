@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreLocationRequest extends FormRequest
 {
@@ -11,9 +13,12 @@ class StoreLocationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
-
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['success' => false, 'message' => $validator->errors()], 412));
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +27,11 @@ class StoreLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'province' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'map_id' => 'required',
+            'drone_id' => 'required'
         ];
     }
 }

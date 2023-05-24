@@ -18,8 +18,7 @@ class Drone extends Model
         'user_id'
     ];
     public static function store($request, $id = null)
-    {   
-        
+    {    
         $drone = $request->only([
             'type',
             'dateTime',
@@ -28,7 +27,6 @@ class Drone extends Model
         ]);
         $drone = self::updateOrCreate(['id' => $id], $drone);
         return $drone;
-
     }
     public function user():BelongsTo
     {

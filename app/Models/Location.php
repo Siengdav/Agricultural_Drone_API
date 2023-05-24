@@ -1,25 +1,34 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 class Location extends Model
 {
     use HasFactory;
     protected $fillable =[
         'province',
-        'map_id',
         'latitude',
         'longitude',
+        'map_id',
+        'drone_id'
     ];
+    public static function store($request, $id = null)
+    {    
+        $location = $request->only([
+            'province',
+            'latitude',
+            'longitude',
+            'map_id',
+            'drone_id'
+        ]);
+        $location = self::updateOrCreate(['id' => $id], $location);
+        return $location;
+    }
     public function map()
     {
         return $this->belongsTo(Map::class);
     }
-
     public function drones():BelongsTo
     {
         return $this->belongsTo(Drone::class);
