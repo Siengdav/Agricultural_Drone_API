@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
+
 
 use App\Http\Requests\StoreInstructionRequest;
 use App\Http\Resources\InstructionResource;
 use App\Http\Resources\ShowInstructionResource;
 use App\Models\Instruction;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 class InstructionController extends Controller
 {
     /**

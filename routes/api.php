@@ -1,7 +1,13 @@
 <?php
 use App\Http\Controllers\DroneController;
+
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\PlanController;
+
+use App\Http\Controllers\FarmController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MapController;
+
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +51,23 @@ Route::get('/instructions/{id}',[InstructionController::class,'show']);
 Route::post('/instructions',[InstructionController::class,'store']);
 Route::delete('/instructions/{id}',[InstructionController::class,'destroy']);
 Route::put('/instructions/{id}',[InstructionController::class,'update']);
+
+//Route Location
+Route::get('/locations',[LocationController::class,'index']);
+Route::get('/locations/{id}',[LocationController::class,'show']);
+Route::post('/locations',[LocationController::class,'store']);
+Route::put('/locations/{id}',[LocationController::class,'update']);
+Route::delete('/locations/{id}',[LocationController::class,'destroy']);
+//Route Map
+Route::get('/maps',[MapController::class,'index']);
+Route::get('/maps/{id}',[MapController::class,'show']);
+Route::post('/maps',[MapController::class,'store']);
+Route::put('/maps/{id}',[MapController::class,'update']);
+Route::delete('/maps/{id}',[MapController::class,'destroy']);
+//Route Farm
+Route::get('/farms',[FarmController::class,'index']);
+Route::get('/farms/{id}',[FarmController::class,'show']);
+Route::post('/farms',[FarmController::class,'index']);
+Route::put('/farms/{id}',[FarmController::class,'update']);
+Route::delete('/farms/{id}',[FarmController::class,'destroy']);
+

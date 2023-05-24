@@ -12,4 +12,13 @@ class Farm extends Model
         'user_id',
         'location_id'
     ];
+    public static function store($request, $id = null)
+    {    
+        $farm = $request->only([
+            'user_id',
+            'location_id',
+        ]);
+        $farm = self::updateOrCreate(['id' => $id], $farm);
+        return $farm;
+    }
 }

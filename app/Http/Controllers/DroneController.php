@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\StoreDroneRequest;
 use App\Http\Resources\DroneResource;
 use App\Http\Resources\ShowDroneResource;
