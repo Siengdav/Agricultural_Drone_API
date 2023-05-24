@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\DroneController;
+use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -38,3 +39,9 @@ Route::get('/plans/{id}',[PlanController::class,'show']);
 Route::post('/plans',[PlanController::class,'store']);
 Route::delete('/plans/{id}',[PlanController::class,'destroy']);
 Route::put('/plans/{id}',[PlanController::class,'update']);
+//Route Instruction
+Route::get('/instructions',[InstructionController::class,'index']);
+Route::get('/instructions/{id}',[InstructionController::class,'show']);
+Route::post('/instructions',[InstructionController::class,'store']);
+Route::delete('/instructions/{id}',[InstructionController::class,'destroy']);
+Route::put('/instructions/{id}',[InstructionController::class,'update']);

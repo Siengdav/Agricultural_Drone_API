@@ -12,4 +12,15 @@ class Instruction extends Model
         'drone_id',
         'plan_id'
     ];
+    public static function store($request, $id = null)
+    {   
+        
+        $instuction = $request->only([
+            'drone_id',
+            'plan_id'
+        ]);
+        $instuction = self::updateOrCreate(['id' => $id], $instuction);
+        return $instuction;
+
+    }
 }
