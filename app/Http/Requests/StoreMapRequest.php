@@ -24,8 +24,10 @@ class StoreMapRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'province' => 'required',
             'image' => 'required',
             'drone_id' => 'required',
+            'farm_id' => 'required'
         ];
     }
 }

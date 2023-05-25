@@ -8,14 +8,18 @@ class Map extends Model
 {
     use HasFactory;
     protected $fillable =[
+        'province',
         'image',
-        'drone_id'
+        'drone_id',
+        'farm_id'
     ];
     public static function store($request, $id = null)
     {    
         $map = $request->only([
+            'province',
             'image',
             'drone_id',
+            'farm_id'
         ]);
         $map = self::updateOrCreate(['id' => $id], $map);
         return $map;
@@ -23,6 +27,10 @@ class Map extends Model
     public function locations()
     {
         return $this->hasMany(Location::class);
+    }
+    public function farm():BelongsTo
+    {
+        return $this->belongsTo(Farm::class);
     }
     public function drone():BelongsTo
     {

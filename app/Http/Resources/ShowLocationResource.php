@@ -13,7 +13,6 @@ class ShowLocationResource extends JsonResource
     {
         return [
             'id' => $this ->id,
-            'province' => $this ->province,
             'latitude' => $this -> latitude,
             'longitude' => $this -> longitude,
             'map_id' => $this -> map_id,

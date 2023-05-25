@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMapRequest;
 use App\Http\Resources\MapResource;
 use App\Http\Resources\ShowMapResource;
+use App\Models\Farm;
+use App\Models\Location;
 use App\Models\Map;
 use Illuminate\Http\Request;
 
@@ -56,5 +58,13 @@ class MapController extends Controller
         $map = Map::find($id);
         $map ->delete();
         return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+    }
+    public function DownLoadMapPhoto($province, $farm_id)
+    {
+        $map = Map::where('province', $province) 
+        ->whereHas('farm', function ($query) use ($farm_id) {
+            $query->where('id', $farm_id);
+        })->firstOrFail();
+        dd($map);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Farm extends Model
 {
@@ -22,8 +23,8 @@ class Farm extends Model
         $farm = self::updateOrCreate(['id' => $id], $farm);
         return $farm;
     }
-    public function location():BelongsTo
+    public function Maps():HasMany
     {
-        return $this->belongsTo(Location::class);
+        return $this->hasMany(Map::class);
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Requests\StoreDroneRequest;
 use App\Http\Resources\DroneResource;
 use App\Http\Resources\ShowDroneResource;
 use App\Models\Drone;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class DroneController extends Controller
@@ -54,5 +55,13 @@ class DroneController extends Controller
         $drone = Drone::find($id);
         $drone ->delete();
         return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+    }
+    public function ShowCurrentLocation($drone_id)
+    {
+        $drone = Drone::findOrFail($drone_id);
+        $locations = Location::whereHas('drone', function ($query) use ($drone_id) {
+            $query->where('id', $drone_id);
+        })->get();
+        return $locations;
     }
 }
