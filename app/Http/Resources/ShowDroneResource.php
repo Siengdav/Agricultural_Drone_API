@@ -13,10 +13,13 @@ class ShowDroneResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this ->id,
             'type' => $this ->type,
             'dateTime' => $this -> dateTime,
             'battery' => $this -> battery,
-            'user_id' => $this -> user_id
+            'userName' => $this -> user,
+            'locations' => LocationResource::collection($this->locations)
+
         ];
     }
 }

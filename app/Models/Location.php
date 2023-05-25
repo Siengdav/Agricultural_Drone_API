@@ -3,6 +3,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Location extends Model
 {
     use HasFactory;
@@ -29,7 +31,15 @@ class Location extends Model
     {
         return $this->belongsTo(Map::class);
     }
+    public function farms(): HasMany
+    {
+        return $this->hasMany(Farm::class);
+    }
     public function drones():BelongsTo
+    {
+        return $this->belongsTo(Drone::class);
+    }
+    public function drone():BelongsTo
     {
         return $this->belongsTo(Drone::class);
     }
