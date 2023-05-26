@@ -70,7 +70,13 @@ Route::get('/farms/{id}',[FarmController::class,'show']);
 Route::post('/farms',[FarmController::class,'index']);
 Route::put('/farms/{id}',[FarmController::class,'update']);
 Route::delete('/farms/{id}',[FarmController::class,'destroy']);
+
 //Show current latitude+longitude of drone D23
 Route::get('/drones/{id}/location',[DroneController::class,'ShowCurrentLocation']);
-//Download map photo the drone took of KC Farm #7
-Route::get('/maps/{nameLocation}/{farmId}',[MapController::class,'DownLoadMapPhoto']);
+//Download map photo the drone By province and farm ID
+Route::get('/maps/{nameLocation}/{farmId}',[MapController::class,'downLoadFarmPhoto']);
+//Delete the image By province and farm ID
+Route::delete('/maps/{nameLocation}/{farmId}',[MapController::class,'deleteFarmImage']);
+//Create ImageFarm
+// Route::post('/maps/{nameLocation}/{farmId}',[MapController::class,'createFarmImage']);
+
