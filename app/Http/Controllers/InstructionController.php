@@ -35,8 +35,12 @@ class InstructionController extends Controller
     public function show(string $id)
     {
         $instruction = Instruction::find($id);
-        $instruction = new ShowInstructionResource($instruction);
-        return response()->json(['success'=>true, 'data' => $instruction], 200);
+        if ($instruction) {
+            $instruction = Instruction::find($id);
+            $instruction = new ShowInstructionResource($instruction);
+            return response()->json(['success'=>true, 'data' => $instruction], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -44,8 +48,12 @@ class InstructionController extends Controller
      */
     public function update(StoreInstructionRequest $request, string $id)
     {
-        $instruction = Instruction::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $instruction], 200);
+        $instruction = Instruction::find($id);
+        if ($instruction) {
+            $instruction = Instruction::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $instruction], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -54,7 +62,11 @@ class InstructionController extends Controller
     public function destroy(string $id)
     {
         $instruction = Instruction::find($id);
-        $instruction ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if ($instruction) {
+            $instruction = Instruction::find($id);
+            $instruction ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 }

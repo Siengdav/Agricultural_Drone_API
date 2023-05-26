@@ -38,8 +38,12 @@ class MapController extends Controller
     public function show(string $id)
     {
         $map = Map::find($id);
-        $map = new ShowMapResource($map);
-        return response()->json(['success'=>true, 'data' => $map], 200);
+        if($map){
+            $map = Map::find($id);
+            $map = new ShowMapResource($map);
+            return response()->json(['success'=>true, 'data' => $map], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -47,8 +51,12 @@ class MapController extends Controller
      */
     public function update(StoreMapRequest $request, string $id)
     {
-        $map = Map::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $map], 200);
+        $map = Map::find($id);
+        if($map){
+            $map = Map::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $map], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -57,30 +65,39 @@ class MapController extends Controller
     public function destroy(string $id)
     {
         $map = Map::find($id);
-        $map ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if($map){
+            $map = Map::find($id);
+            $map ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
     public function downLoadFarmPhoto($province, $farm_id)
     {
-        $map = Map::where('province', $province) 
-        ->whereHas('farm', function ($query) use ($farm_id) {
-            $query->where('id', $farm_id);})->first();
-        if(!$map){
-            return response()->json(['message'=>'Not found'],404);
+        $map = Map::where('province', $province)
+            ->whereHas('farms', function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            })
+            ->with(['farms' => function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            }])
+            ->first();
+        if ($map === null) {
+            return response()->json(['message' => 'No map found.'], 404);
+        } else {
+            return response()->json(['status' => 'success', 'image' => $map->image], 202);
         }
-        if (!$map->image) {
-            return response()->json(['message' => 'Map image not found'], 404);
-        }
-        $image = $map->image;
-        $image->save();
-        dd($image);
-        return response()->json(['message'=>'Image download successfully'], 200);
-
     }
     public function deleteFarmImage($province, $farm_id)
     {
-        $map = Map::where('province', $province)->with(['farm' => function($query) use ($farm_id){
-            $query->orderByDesc('created_at')->where('id', $farm_id); }])->first();
+        $map = Map::where('province', $province)
+            ->whereHas('farms', function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            })
+            ->with(['farms' => function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            }])
+            ->first();
         if(!$map){
             return response()->json(['message'=>'Not found'],404);
         }
@@ -90,5 +107,23 @@ class MapController extends Controller
         $map->image = "null";
         $map->save();
         return response()->json(['message'=>'Image deleted successfully'], 200);
+    }
+    public function createFarmImage($province, $farm_id, Request $request)
+    {
+        $map = Map::where('province', $province)
+            ->whereHas('farms', function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            })
+            ->with(['farms' => function ($query) use ($farm_id) {
+                $query->where('id', $farm_id);
+            }])
+            ->first();
+        // $drone_id = $map->drone_id;
+        if(!$map){
+            return response()->json(['message'=>'Not found'],404);
+        }
+        $map->image = $request->input('image');
+        $map->save();
+        return response()->json(['message'=>'Image create successfully', 'data'=>$map], 200);
     }
 }

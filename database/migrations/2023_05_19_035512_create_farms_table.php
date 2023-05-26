@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade');
 
-            
+            $table->unsignedBigInteger('map_id');
+            $table->foreign('map_id')->references('id')->on('maps')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

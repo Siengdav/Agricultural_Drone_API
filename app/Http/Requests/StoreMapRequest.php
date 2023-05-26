@@ -27,7 +27,7 @@ class StoreMapRequest extends FormRequest
             'province' => 'required',
             'image' => 'required',
             'drone_id' => 'required',
-            'farm_id' => 'required'
+
         ];
     }
 }

@@ -28,9 +28,9 @@ class Map extends Model
     {
         return $this->hasMany(Location::class);
     }
-    public function farm():BelongsTo
+    public function farms():HasMany
     {
-        return $this->belongsTo(Farm::class);
+        return $this->hasMany(Farm::class);
     }
     public function drone():BelongsTo
     {

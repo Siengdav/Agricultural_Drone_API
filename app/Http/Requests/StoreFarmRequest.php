@@ -27,7 +27,7 @@ class StoreFarmRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'location_id' => 'location_id',
+            'map_id' => 'required'
         ];
     }
 }

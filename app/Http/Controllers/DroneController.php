@@ -34,8 +34,12 @@ class DroneController extends Controller
     public function show(string $id)
     {
         $drone = Drone::find($id);
-        $drone = new ShowDroneResource($drone);
-        return response()->json(['success'=>true, 'data' => $drone], 200);
+        if ($drone) {
+            $drone = Drone::find($id);
+            $drone = new ShowDroneResource($drone);
+            return response()->json(['success'=>true, 'data' => $drone], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -43,8 +47,12 @@ class DroneController extends Controller
      */
     public function update(StoreDroneRequest $request, string $id)
     {
-        $drone = Drone::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $drone], 200);
+        $drone = Drone::find($id);
+        if ($drone) {
+            $drone = Drone::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $drone], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -53,8 +61,12 @@ class DroneController extends Controller
     public function destroy(string $id)
     {
         $drone = Drone::find($id);
-        $drone ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if ($drone) {
+            $drone = Drone::find($id);
+            $drone ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
     public function ShowCurrentLocation($drone_id)
     {

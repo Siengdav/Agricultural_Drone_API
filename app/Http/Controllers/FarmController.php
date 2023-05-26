@@ -33,9 +33,13 @@ class FarmController extends Controller
      */
     public function show(string $id)
     {
-        $farm = Drone::find($id);
-        $farm = new ShowFarmResource($farm);
-        return response()->json(['success'=>true, 'data' => $farm], 200);
+        $farm = Farm::find($id);
+        if ($farm) {
+            $farm = Drone::find($id);
+            $farm = new ShowFarmResource($farm);
+            return response()->json(['success'=>true, 'data' => $farm], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -43,8 +47,12 @@ class FarmController extends Controller
      */
     public function update(StoreFarmRequest $request, string $id)
     {
-        $farm = Farm::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $farm], 200);
+        $farm = Farm::find($id);
+        if ($farm) {
+            $farm = Farm::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $farm], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -53,7 +61,11 @@ class FarmController extends Controller
     public function destroy(string $id)
     {
         $farm = Farm::find($id);
-        $farm ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if ($farm) {
+            $farm = Farm::find($id);
+            $farm ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 }

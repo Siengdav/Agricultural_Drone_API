@@ -35,8 +35,12 @@ class PlanController extends Controller
     public function show(string $id)
     {
         $plan = Plan::find($id);
-        $plan = new ShowPlanResource($plan);
-        return response()->json(['success'=>true, 'data' => $plan], 200);
+        if ($plan) {
+            $plan = Plan::find($id);
+            $plan = new ShowPlanResource($plan);
+            return response()->json(['success'=>true, 'data' => $plan], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -44,8 +48,12 @@ class PlanController extends Controller
      */
     public function update(StorePlanRequest $request, string $id)
     {
-        $plan = Plan::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $plan], 200);
+        $plan = Plan::find($id);
+        if ($plan) {
+            $plan = Plan::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $plan], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -54,7 +62,11 @@ class PlanController extends Controller
     public function destroy(string $id)
     {
         $plan = Plan::find($id);
-        $plan ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if ($plan) {
+            $plan = Plan::find($id);
+            $plan ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 }

@@ -15,10 +15,11 @@ class MapResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this ->id,
             'province' => $this -> province,
             'image' => $this ->image,
             'drone_id' => $this -> drone_id,
-            'farm_id' => $this -> farm_id
+
         ];
     }
 }

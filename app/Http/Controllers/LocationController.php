@@ -34,8 +34,12 @@ class LocationController extends Controller
     public function show(string $id)
     {
         $location = Location::find($id);
-        $location = new ShowLocationResource($location);
-        return response()->json(['success'=>true, 'data' => $location], 200);
+        if ($location) {
+            $location = Location::find($id);
+            $location = new ShowLocationResource($location);
+            return response()->json(['success'=>true, 'data' => $location], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -43,8 +47,12 @@ class LocationController extends Controller
      */
     public function update(StoreLocationRequest $request, string $id)
     {
-        $location = Location::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $location], 200);
+        $location = Location::find($id);
+        if ($location) {
+            $location = Location::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $location], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -53,7 +61,11 @@ class LocationController extends Controller
     public function destroy(string $id)
     {
         $location = Location::find($id);
-        $location ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        if ($location) {
+            $location = Location::find($id);
+            $location ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 }

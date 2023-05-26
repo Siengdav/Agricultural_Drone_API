@@ -67,7 +67,7 @@ Route::delete('/maps/{id}',[MapController::class,'destroy']);
 //Route Farm
 Route::get('/farms',[FarmController::class,'index']);
 Route::get('/farms/{id}',[FarmController::class,'show']);
-Route::post('/farms',[FarmController::class,'index']);
+Route::post('/farms',[FarmController::class,'store']);
 Route::put('/farms/{id}',[FarmController::class,'update']);
 Route::delete('/farms/{id}',[FarmController::class,'destroy']);
 
@@ -78,5 +78,5 @@ Route::get('/maps/{nameLocation}/{farmId}',[MapController::class,'downLoadFarmPh
 //Delete the image By province and farm ID
 Route::delete('/maps/{nameLocation}/{farmId}',[MapController::class,'deleteFarmImage']);
 //Create ImageFarm
-// Route::post('/maps/{nameLocation}/{farmId}',[MapController::class,'createFarmImage']);
+Route::post('/maps/{nameLocation}/{farmId}',[MapController::class,'createFarmImage']);
 

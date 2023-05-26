@@ -35,8 +35,12 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
-        $user = new ShowUserResource($user);
-        return response()->json(['success'=>true, 'data' => $user], 200);
+        if ($user) {
+            $user = User::find($id);
+            $user = new ShowUserResource($user);
+            return response()->json(['success'=>true, 'data' => $user], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -44,8 +48,12 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, string $id)
     {
-        $user = User::store($request, $id);
-        return response()->json(['success'=>true, 'data' => $user], 200);
+        $user = User::find($id);
+        if ($user) {
+            $user = User::store($request, $id);
+            return response()->json(['success'=>true, 'data' => $user], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 
     /**
@@ -54,8 +62,11 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::find($id);
-        $user ->delete();
-        return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
-
+        if ($user) {
+            $user = User::find($id);
+            $user ->delete();
+            return response()->json(['success'=>true, 'message' => 'Data delete successfully'], 200);
+        }
+        return response()->json(['message'=> 'Id not found'], 404);
     }
 }

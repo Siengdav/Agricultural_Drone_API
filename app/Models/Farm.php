@@ -12,19 +12,19 @@ class Farm extends Model
     use HasFactory;
     protected $fillable =[
         'user_id',
-        'location_id'
+        'map_id'
     ];
     public static function store($request, $id = null)
     {    
         $farm = $request->only([
             'user_id',
-            'location_id',
+            'map_id'
         ]);
         $farm = self::updateOrCreate(['id' => $id], $farm);
         return $farm;
     }
-    public function Maps():HasMany
+    public function map():BelongsTo
     {
-        return $this->hasMany(Map::class);
+        return $this->belongsTo(Map::class);
     }
 }
