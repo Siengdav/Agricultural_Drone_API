@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Requests\StoreDroneRequest;
+use App\Http\Requests\StoreInstructionRequest;
 use App\Http\Resources\DroneResource;
 use App\Http\Resources\ShowDroneResource;
 use App\Models\Drone;
+use App\Models\Instruction;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -53,6 +55,22 @@ class DroneController extends Controller
             return response()->json(['success'=>true, 'data' => $drone], 200);
         }
         return response()->json(['message'=> 'Id not found'], 404);
+    }
+    public function updateInstruction(Request $request, $drone_id)
+    {
+        $instruction = Instruction::where('drone_id', $drone_id)->first();
+        if ($instruction) {
+            $drone = $instruction -> drone;
+            $drone -> type = $request -> input("type");
+            $drone -> dateTime = $request -> input("dateTime");
+            $drone -> battery = $request -> input("battery");
+            $drone -> save();
+           
+            $instruction->update($request->all());
+            return response()->json(['message' => 'Instruction updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Instruction not found'], 404);
+        }
     }
 
     /**

@@ -29,6 +29,7 @@ class StoreInstructionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'status' => 'required',
             'drone_id' => 'required',
             'plan_id' => 'required'
         ];

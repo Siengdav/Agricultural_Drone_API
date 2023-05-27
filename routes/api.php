@@ -79,4 +79,8 @@ Route::get('/maps/{nameLocation}/{farmId}',[MapController::class,'downLoadFarmPh
 Route::delete('/maps/{nameLocation}/{farmId}',[MapController::class,'deleteFarmImage']);
 //Create ImageFarm
 Route::post('/maps/{nameLocation}/{farmId}',[MapController::class,'createFarmImage']);
+//Iupdate Instruction
+Route::put('/update_instruction/{droneId}',[DroneController::class,'updateInstruction']);
+//Show new instruction by PlanName
+Route::get('/show_instruction/{planName}',[PlanController::class,'showNewInstruction']);
 

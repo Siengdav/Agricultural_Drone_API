@@ -3,6 +3,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Plan extends Model
 {
     use HasFactory;
@@ -27,6 +29,10 @@ class Plan extends Model
     }
     public function drones()
     {
-        return $this->belongsToMany(Drone::class, 'drones');
+        return $this->belongsToMany(Drone::class, 'instructions');
+    }
+    public function Instructions():HasMany
+    {
+        return $this->hasMany(Instruction::class);
     }
 }

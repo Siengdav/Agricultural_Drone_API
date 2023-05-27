@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePlanRequest;
+use App\Http\Resources\InstructionResource;
 use App\Http\Resources\PlanResource;
+use App\Http\Resources\ShowPlanInstructionResource;
 use App\Http\Resources\ShowPlanResource;
+use App\Models\Instruction;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 
@@ -42,7 +45,15 @@ class PlanController extends Controller
         }
         return response()->json(['message'=> 'Id not found'], 404);
     }
-
+    public function showNewInstruction($planName)
+    {
+        $plan = Plan::where('planName', $planName)->first();
+        if($plan){
+            $plan = new ShowPlanInstructionResource($plan);
+            return response()->json(['success'=>true, 'data' => $plan], 200);    
+        }
+            return response()->json(['message' => 'planName not found'], 404);
+    }
     /**
      * Update the specified resource in storage.
      */

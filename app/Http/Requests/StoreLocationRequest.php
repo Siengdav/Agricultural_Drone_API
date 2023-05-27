@@ -27,7 +27,6 @@ class StoreLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'province' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
             'map_id' => 'required',
