@@ -4,6 +4,7 @@ use App\Http\Requests\StoreDroneRequest;
 use App\Http\Resources\DroneResource;
 use App\Http\Resources\ShowDroneResource;
 use App\Models\Drone;
+use App\Models\Instruction;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,7 @@ class DroneController extends Controller
         }
         return response()->json(['message'=> 'Id not found'], 404);
     }
+    //Show current location in drone
     public function ShowCurrentLocation($drone_id)
     {
         $drone = Drone::findOrFail($drone_id);
@@ -75,5 +77,5 @@ class DroneController extends Controller
             $query->where('id', $drone_id);
         })->get();
         return $locations;
-    }
+    }   
 }
