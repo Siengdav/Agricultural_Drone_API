@@ -18,7 +18,6 @@ class LocationResource extends JsonResource
             'latitude' => $this -> latitude,
             'longitude' => $this -> longitude,
             'map' => $this -> map,
-            'farms' => $this -> farms,
             'drone_id' => $this -> drone_id,
         ];
     }

@@ -17,6 +17,7 @@ class InstructionResource extends JsonResource
     {
         return [
             'id' => $this ->id,
+            "status" => $this ->status,
             'drone_id' => $this->drone_id,
             'plan_id' => $this->plan_id,
             'drone' => $this->drone,
