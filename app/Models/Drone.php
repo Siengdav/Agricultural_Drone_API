@@ -40,12 +40,12 @@ class Drone extends Model
     {
         return $this->belongsToMany(Plan::class, 'instructions');
     }
-    public function maps(): HasMany
-    {
-        return $this->hasMany(Map::class);
-    }
     public function instructions()
     {
         return $this->belongsToMany(Instruction::class);
+    }
+    public function maps(): HasMany
+    {
+        return $this->hasMany(Map::class);
     }
 }

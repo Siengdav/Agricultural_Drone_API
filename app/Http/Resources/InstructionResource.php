@@ -16,7 +16,7 @@ class InstructionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this ->id,
             'drone_id' => $this->drone_id,
             'plan_id' => $this->plan_id,
             'drone' => $this->drone,

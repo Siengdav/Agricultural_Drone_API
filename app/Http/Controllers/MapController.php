@@ -72,6 +72,7 @@ class MapController extends Controller
         }
         return response()->json(['message'=> 'Id not found'], 404);
     }
+    //Download farm image by farmID
     public function downLoadFarmPhoto($province, $farm_id)
     {
         $map = Map::where('province', $province)
@@ -88,6 +89,8 @@ class MapController extends Controller
             return response()->json(['status' => 'success', 'image' => $map->image], 202);
         }
     }
+
+    //Delete farm image by farmID
     public function deleteFarmImage($province, $farm_id)
     {
         $map = Map::where('province', $province)
@@ -108,6 +111,8 @@ class MapController extends Controller
         $map->save();
         return response()->json(['message'=>'Image deleted successfully'], 200);
     }
+
+    //Create farm image by farmID
     public function createFarmImage($province, $farm_id, Request $request)
     {
         $map = Map::where('province', $province)

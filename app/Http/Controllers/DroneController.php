@@ -86,6 +86,7 @@ class DroneController extends Controller
         }
         return response()->json(['message'=> 'Id not found'], 404);
     }
+    //Show current location in drone
     public function ShowCurrentLocation($drone_id)
     {
         $drone = Drone::findOrFail($drone_id);
@@ -93,5 +94,5 @@ class DroneController extends Controller
             $query->where('id', $drone_id);
         })->get();
         return $locations;
-    }
+    }   
 }
